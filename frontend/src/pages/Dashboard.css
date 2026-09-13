@@ -1,0 +1,38 @@
+.dashboard-empty {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.dashboard-empty p {
+  margin-bottom: 16px;
+  color: var(--text-light);
+}
+
+.dashboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 60px;
+}
+
+.dashboard-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.dashboard-item h3 {
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.dashboard-item p {
+  font-size: 0.85rem;
+  color: var(--text-light);
+}

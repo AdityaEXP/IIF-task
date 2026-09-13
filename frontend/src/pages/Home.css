@@ -1,0 +1,11 @@
+.home-events-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+@media (max-width: 768px) {
+  .home-events-grid {
+    grid-template-columns: 1fr;
+  }
+}

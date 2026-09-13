@@ -1,0 +1,11 @@
+.footer {
+  background: var(--primary-dark);
+  color: #cbd5e0;
+  padding: 24px 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.footer-inner p {
+  margin: 4px 0;
+}
