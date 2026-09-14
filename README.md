@@ -63,3 +63,5 @@ the correct code get admin access and can manage events from `/admin`.
   enforced with a unique constraint in the database).
 - Event capacity is optional; if set, registration closes automatically once
   the event is full.
+
+# Please give app some time as its backend is on render and it wakes up after 40s
