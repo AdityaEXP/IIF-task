@@ -5,25 +5,26 @@ from app.database.db import database
 
 async def register_for_event(user_id: int, event_id: int):
     async with database.pool.acquire() as connection:
-        event = await connection.fetchrow("SELECT * FROM events WHERE id = $1", event_id)
-        if not event:
-            return "not_found"
+        async with connection.transaction():
+            event = await connection.fetchrow("SELECT * FROM events WHERE id = $1 FOR UPDATE", event_id)
+            if not event:
+                return "not_found"
 
-        if event["capacity"] is not None:
-            count_row = await connection.fetchrow(
-                "SELECT COUNT(*) AS total FROM registrations WHERE event_id = $1", event_id
-            )
-            if count_row["total"] >= event["capacity"]:
-                return "full"
+            if event["capacity"] is not None:
+                count_row = await connection.fetchrow(
+                    "SELECT COUNT(*) AS total FROM registrations WHERE event_id = $1", event_id
+                )
+                if count_row["total"] >= event["capacity"]:
+                    return "full"
 
-        try:
-            await connection.execute(
-                "INSERT INTO registrations (user_id, event_id) VALUES ($1, $2)",
-                user_id, event_id,
-            )
-            return "ok"
-        except asyncpg.UniqueViolationError:
-            return "already_registered"
+            try:
+                await connection.execute(
+                    "INSERT INTO registrations (user_id, event_id) VALUES ($1, $2)",
+                    user_id, event_id,
+                )
+                return "ok"
+            except asyncpg.UniqueViolationError:
+                return "already_registered"
 
 
 async def list_my_registrations(user_id: int):
